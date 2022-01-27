@@ -1,0 +1,14 @@
+- name: Playbook to build and run Docker
+  hosts: server
+  become: true
+  gather_facts: false
+ tasks:
+    - name: Run Docker container using hello_world-app-docker-image
+      docker_container:
+        name: flask_app_container
+        image: "{{ image_id }}"
+        state: started
+        recreate: yes
+        detach: true
+        ports:
+          - "80:8080"
